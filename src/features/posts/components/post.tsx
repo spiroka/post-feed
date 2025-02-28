@@ -13,7 +13,7 @@ export function Post({ title, body }: Props) {
         <CardTitle>
           <div className="flex flex-row gap-2 items-center">
             <Avatar>
-              <AvatarImage src="https://placecats.com/100/100" />
+              <AvatarImage alt="the user's avatar" src="https://placecats.com/100/100" />
               <AvatarFallback>Avatar</AvatarFallback>
             </Avatar>
             <span>{title}</span>
