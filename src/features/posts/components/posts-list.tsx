@@ -22,6 +22,9 @@ export function PostsList({ initialPosts }: Props) {
 
   return (
     <>
+      {!posts?.length && initialPosts.map((post) => (
+        <Post key={post.title} title={post.title} body={post.body} />
+      ))}
       {posts.map((post) => (
         <Post key={post.title} title={post.title} body={post.body} />
       ))}
