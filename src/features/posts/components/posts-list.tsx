@@ -1,9 +1,8 @@
 'use client';
 
-import { useEffect } from 'react';
-
-import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { setPosts } from '@/store/slices/posts';
+import { useGetPostsInfiniteQuery } from '@/store/slices/api';
+import InfiniteScroll from '@/components/ui/infinite-scroll';
+import { Spinner } from '@/components/ui/spinner';
 
 import type { Post as PostType } from '../types';
 import { Post } from './post';
@@ -13,21 +12,25 @@ type Props = {
 }
 
 export function PostsList({ initialPosts }: Props) {
-  const dispatch = useAppDispatch();
-  const posts = useAppSelector(({ posts }) => posts.items);
-
-  useEffect(() => {
-    dispatch(setPosts(initialPosts));
-  }, [dispatch, initialPosts]);
+  const { data, hasNextPage, fetchNextPage, isLoading } = useGetPostsInfiniteQuery();
+  const posts = data?.pages.flatMap(({ page }) => page);
 
   return (
-    <>
+    <section role="feed" aria-label="Posts" className="flex flex-col gap-4">
       {!posts?.length && initialPosts.map((post) => (
         <Post key={post.title} title={post.title} body={post.body} />
       ))}
-      {posts.map((post) => (
+      {posts?.map((post) => (
         <Post key={post.title} title={post.title} body={post.body} />
       ))}
-    </>
+      <InfiniteScroll
+        isLoading={isLoading}
+        hasMore={hasNextPage}
+        next={fetchNextPage}
+        rootMargin="500px"
+      >
+        {hasNextPage && <div><Spinner /></div>}
+      </InfiniteScroll>
+    </section>
   );
 }

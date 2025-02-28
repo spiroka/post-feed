@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import posts from './slices/posts';
+import apiSlice from './slices/api';
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      posts
-    }
+      [apiSlice.reducerPath]: apiSlice.reducer
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware)
   });
 };
 
