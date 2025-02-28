@@ -1,4 +1,4 @@
-import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 type Props = {
@@ -14,6 +14,7 @@ export function Post({ title, body }: Props) {
           <div className="flex flex-row gap-2 items-center">
             <Avatar>
               <AvatarImage src="https://placecats.com/100/100" />
+              <AvatarFallback>Avatar</AvatarFallback>
             </Avatar>
             <span>{title}</span>
           </div>
