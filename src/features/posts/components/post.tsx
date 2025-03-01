@@ -20,8 +20,10 @@ export function Post({ title, body }: Props) {
           </div>
         </CardTitle>
       </CardHeader>
-      <CardContent className="overflow-hidden text-ellipsis whitespace-nowrap w-full">
-        {body}
+      <CardContent>
+        <div className="line-clamp-2">
+          {body}
+        </div>
       </CardContent>
     </Card>
   );

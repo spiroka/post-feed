@@ -5,6 +5,7 @@ import InfiniteScroll from '@/components/ui/infinite-scroll';
 import { Spinner } from '@/components/ui/spinner';
 
 import type { Post as PostType } from '../types';
+import { useNewPostNotifier } from '../hooks/use-new-post-notifier';
 import { Post } from './post';
 
 type Props = {
@@ -14,20 +15,21 @@ type Props = {
 export function PostsList({ initialPosts }: Props) {
   const { data, hasNextPage, fetchNextPage, isLoading } = useGetPostsInfiniteQuery();
   const posts = data?.pages.flatMap(({ page }) => page);
+  const mostRecentPostDate = posts?.[0]?._creationTime;
+  useNewPostNotifier({ mostRecentPostDate });
 
   return (
     <section role="feed" aria-label="Posts" className="flex flex-col gap-4">
       {!posts?.length && initialPosts.map((post) => (
-        <Post key={post.title} title={post.title} body={post.body} />
+        <Post key={post._id} title={post.title} body={post.body} />
       ))}
       {posts?.map((post) => (
-        <Post key={post.title} title={post.title} body={post.body} />
+        <Post key={post._id} title={post.title} body={post.body} />
       ))}
       <InfiniteScroll
         isLoading={isLoading}
         hasMore={hasNextPage}
         next={fetchNextPage}
-        rootMargin="500px"
       >
         {hasNextPage && <div><Spinner /></div>}
       </InfiniteScroll>
