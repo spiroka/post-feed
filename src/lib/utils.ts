@@ -6,6 +6,11 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatRelativeDate(timestamp: number) {
+  if (timestamp < 0) {
+    console.warn('formatRelativeDate should be called with a positive timestamp');
+    return 'Invalid Date';
+  }
+
   const now = Date.now();
   const diffInSeconds = Math.floor((now - timestamp) / 1000);
   const diffInMinutes = Math.floor(diffInSeconds / 60);
