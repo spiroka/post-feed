@@ -50,8 +50,33 @@ export default {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
-  		},
+  			},
+      },
+      keyframes: {
+        highlight: {
+          '0%': {
+            backgroundPosition: '0%',
+            backgroundImage: `linear-gradient(
+              to right,
+              theme('colors.amber.100'),
+              transparent 30%
+            )`,
+            backgroundSize: '300%'
+          },
+          '100%': {
+            backgroundPosition: '50%',
+            backgroundImage: `linear-gradient(
+              to right,
+              theme('colors.amber.100'),
+              transparent 30%
+            )`,
+            backgroundSize: '300%'
+          }
+        }
+      },
+      animation: {
+        highlight: 'highlight 3s'
+      },
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',

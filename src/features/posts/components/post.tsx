@@ -1,17 +1,18 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { formatRelativeDate } from '@/lib/utils';
+import { cn, formatRelativeDate } from '@/lib/utils';
 
 type Props = {
   title: string;
   body: string;
   creationTime: number;
+  highlight?: boolean;
 }
 
-export function Post({ title, body, creationTime }: Props) {
+export function Post({ title, body, creationTime, highlight }: Props) {
   return (
-    <Card className="max-w-md">
+    <Card className={cn('max-w-md', { 'animate-highlight': highlight })}>
       <CardHeader>
         <CardTitle className="mb-5">{title}</CardTitle>
         <CardDescription>
@@ -22,7 +23,7 @@ export function Post({ title, body, creationTime }: Props) {
             </Avatar>
             <span>John Doe</span>
             <Separator orientation="vertical" decorative />
-            <span>{formatRelativeDate(creationTime)}</span>
+            <span suppressHydrationWarning>{formatRelativeDate(creationTime)}</span>
           </div>
         </CardDescription>
       </CardHeader>
