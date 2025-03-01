@@ -21,10 +21,10 @@ export function PostsList({ initialPosts }: Props) {
   return (
     <section role="feed" aria-label="Posts" className="flex flex-col gap-4">
       {!posts?.length && initialPosts.map((post) => (
-        <Post key={post._id} title={post.title} body={post.body} />
+        <Post key={post._id} title={post.title} body={post.body} creationTime={post._creationTime} />
       ))}
       {posts?.map((post) => (
-        <Post key={post._id} title={post.title} body={post.body} />
+        <Post key={post._id} title={post.title} body={post.body} creationTime={post._creationTime} />
       ))}
       <InfiniteScroll
         isLoading={isLoading}
