@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 
 import type { Post as PostType } from '@/features/posts/types';
 import { Spinner } from '@/components/ui/spinner';
-import apiSlice, { useGetPostByIdQuery } from '@/store/slices/api';
+import { hydratePostAction, useGetPostByIdQuery } from '@/store/slices/api';
 import { useAppDispatch } from '@/lib/hooks';
 import { Post } from '@/features/posts/components/post';
 
@@ -18,7 +18,7 @@ export function PostContainer({ post: initialPost }: Props) {
   const dispatch = useAppDispatch();
 
   if (!isInitializedRef.current) {
-    dispatch(apiSlice.util.upsertQueryData('getPostById', initialPost._id, initialPost));
+    dispatch(hydratePostAction(initialPost));
     isInitializedRef.current = true;
   }
 

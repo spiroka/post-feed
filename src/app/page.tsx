@@ -1,19 +1,12 @@
 import { fetchQuery } from 'convex/nextjs';
 
-import { PostsList } from '@/features/posts/components/posts-list';
-
 import { api } from '../../convex/_generated/api';
+import PostsListContainer from './components/posts-list-container';
 
 export default async function Home() {
-  const { page: posts } = await fetchQuery(api.posts.list, { paginationOpts: { numItems: 20, cursor: null } });
+  const initialResults = await fetchQuery(api.posts.list, { paginationOpts: { numItems: 20, cursor: null } });
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <PostsList initialPosts={posts} />
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-      </footer>
-    </div>
+    <PostsListContainer initialResults={initialResults} />
   );
 }

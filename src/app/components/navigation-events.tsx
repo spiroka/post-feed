@@ -3,6 +3,8 @@
 import { useEffect } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 
+import { PREVIOUS_PAGE_KEY } from '@/lib/constants';
+
 export default function NavigationEvents() {
   const pathName = usePathname();
   const searchParams = useSearchParams();
@@ -13,15 +15,11 @@ export default function NavigationEvents() {
     console.log(`Navigating to: ${url}`);
 
     return () => {
-      window.localStorage.setItem('previousPage', url);
+      // used by the useGoBackOrDefault hook
+      window.sessionStorage.setItem(PREVIOUS_PAGE_KEY, url);
     };
   }, [pathName, searchParams]);
 
-  useEffect(() => {
-    window.addEventListener('beforeunload', () => {
-      window.localStorage.removeItem('previousPage');
-    });
-  }, []);
-
+  // not written as hook so that this can be rendered on the server
   return null;
 }

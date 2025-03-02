@@ -47,6 +47,42 @@ const apiSlice = createApi({
   })
 });
 
+export function addNewPostsAction(newPosts: Post[]) {
+  return apiSlice.util.updateQueryData('getPosts', undefined, (draft) => {
+    newPosts.forEach((post) => {
+      if (!draft.pages[0]?.page.find((p) => p._id === post._id)) {
+        draft.pages[0]?.page.unshift({ ...post, highlight: true });
+      }
+    });
+  });
+}
+
+export function removePostHighlightsAction() {
+  return apiSlice.util.updateQueryData('getPosts', undefined, (draft) => {
+    draft.pages[0]?.page.forEach((post) => {
+      post.highlight = false;
+    });
+  });
+}
+
+export function hydratePostAction(post: Post) {
+  return apiSlice.util.upsertQueryData('getPostById', post._id, post);
+}
+
+export function hydratePostsAction(initialResults: PaginationResult<Post>) {
+  return apiSlice.util.updateQueryData('getPosts', undefined, (draft) => {
+    if (!draft) {
+      return {
+        pageParams: [null],
+        pages: [initialResults]
+      };
+    }
+
+    // state is already initialized
+    return draft;
+  });
+}
+
 export default apiSlice;
 
 export const { useGetPostsInfiniteQuery, useGetPostByIdQuery } = apiSlice;
