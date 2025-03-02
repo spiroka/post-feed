@@ -1,5 +1,7 @@
-import { PostsList } from '@/features/posts/components/posts-list';
 import { fetchQuery } from 'convex/nextjs';
+
+import { PostsList } from '@/features/posts/components/posts-list';
+
 import { api } from '../../convex/_generated/api';
 
 export default async function Home() {

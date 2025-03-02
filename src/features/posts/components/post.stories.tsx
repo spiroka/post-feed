@@ -13,7 +13,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Example: Story = {
   args: {
-    title: "title",
-    body: "body"
+    title: 'title',
+    body: 'body',
+    creationTime: Date.UTC(2025, 2, 1)
   }
 };

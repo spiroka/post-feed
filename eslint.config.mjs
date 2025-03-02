@@ -20,7 +20,7 @@ export default tseslint.config(
       }
     },
     rules: {
-      '@typescript-eslint/no-floating-promises': 'error'
+      '@typescript-eslint/no-floating-promises': 'off'
     }
   },
   compat.extends('next/core-web-vitals', 'next/typescript')

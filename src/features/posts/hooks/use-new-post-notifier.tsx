@@ -14,11 +14,13 @@ type Props = {
 
 export function useNewPostNotifier({ mostRecentPostDate, onShowNewPosts }: Props) {
   // Convex queries are updated realtime when a new document is added
-  const newPosts = useQuery(api.posts.postsAfterDate, { date: mostRecentPostDate });
+  const newPosts = useQuery(api.posts.afterDate, { date: mostRecentPostDate });
 
   useEffect(() => {
     if (newPosts?.length) {
       toast('New posts available!', {
+        closeButton: true,
+        duration: undefined,
         action: (
           <Button
             size="sm"

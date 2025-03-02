@@ -1,36 +1,44 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+'use client';
+
+import { ArrowLeft } from 'lucide-react';
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { cn, formatRelativeDate } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { useGoBackOrDefault } from '@/lib/hooks/useGoBackOrDefault';
+
+import { PostAuthor } from './post-author';
+import type { Post as PostType } from '../types';
 
 type Props = {
-  title: string;
-  body: string;
-  creationTime: number;
-  highlight?: boolean;
+  post: PostType;
 }
 
-export function Post({ title, body, creationTime, highlight }: Props) {
+
+export function Post({ post }: Props) {
+  const goBack = useGoBackOrDefault('/');
+
   return (
-    <Card className={cn('max-w-md', { 'animate-highlight': highlight })}>
+    <Card className="max-w-xl">
       <CardHeader>
-        <CardTitle className="mb-5">{title}</CardTitle>
+        <CardTitle className="flex gap-2 items-center mb-5 text-2xl">
+          <Button
+            variant="ghost"
+            onClick={goBack}
+          >
+            <ArrowLeft />
+          </Button>
+          {post.title}
+        </CardTitle>
         <CardDescription>
-          <div className="flex h-3 gap-2 items-center text-xs">
-            <Avatar>
-              <AvatarImage alt="the user's avatar" src="https://placecats.com/100/100" />
-              <AvatarFallback>Avatar</AvatarFallback>
-            </Avatar>
-            <span>John Doe</span>
-            <Separator orientation="vertical" decorative />
-            <span suppressHydrationWarning>{formatRelativeDate(creationTime)}</span>
-          </div>
+          <PostAuthor
+            authorName="John Doe"
+            authorAvatarUrl="https://placecats.com/100/100"
+            creationTime={post._creationTime}
+          />
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="line-clamp-2">
-          {body}
-        </div>
+        {post.body}
       </CardContent>
     </Card>
   );

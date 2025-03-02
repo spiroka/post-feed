@@ -13,7 +13,7 @@ export const list = query({
   }
 });
 
-export const postsAfterDate = query({
+export const afterDate = query({
   args: { date: v.optional(v.number()) },
   handler: (ctx, args) => {
     if (!args.date) {
@@ -22,8 +22,21 @@ export const postsAfterDate = query({
 
     return ctx.db
       .query('posts')
-      .filter((q) => q.gt(q.field('_creationTime'), args.date))
+      .filter((q) => q.gt(q.field('_creationTime'), args.date!))
       .order('desc')
       .collect();
+  }
+});
+
+export const byId = query({
+  args: { id: v.string() },
+  handler: (ctx, args) => {
+    const normalizedId = ctx.db.normalizeId('posts', args.id);
+
+    if (!normalizedId) {
+      return null;
+    }
+
+    return ctx.db.get(normalizedId);
   }
 });

@@ -1,6 +1,3 @@
-export type Post = {
-  _id: string;
-  _creationTime: number;
-  title: string;
-  body: string;
-};
+import { Doc } from '@/convex/_generated/dataModel';
+
+export type Post = Doc<'posts'> & { highlight?: boolean };
