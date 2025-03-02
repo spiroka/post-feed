@@ -1,30 +1,26 @@
 import Link from 'next/link';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Id } from '@/convex/_generated/dataModel';
 import { cn } from '@/lib/utils';
 import { PostAuthor } from './post-author';
+import { Post } from '../types';
 
 type Props = {
-  id: Id<'posts'>;
-  title: string;
-  body: string;
-  creationTime: number;
-  highlight?: boolean;
+  post: Post;
 }
 
-export function PostItem({ id, title, body, creationTime, highlight }: Props) {
+export function PostItem({ post: { _id, title, body, _creationTime, highlight, author } }: Props) {
   return (
     <Card className={cn('max-w-md', { 'animate-highlight': highlight })}>
       <CardHeader>
         <CardTitle className="mb-5 underline">
-          <Link href={`posts/${id}`}>{title}</Link>
+          <Link href={`posts/${_id}`}>{title}</Link>
         </CardTitle>
         <CardDescription>
           <PostAuthor
-            authorName="John Doe"
-            authorAvatarUrl="https://placecats.com/100/100"
-            creationTime={creationTime}
+            authorName={author.name}
+            authorAvatarUrl={author.avatarUrl}
+            creationTime={_creationTime}
             small
           />
         </CardDescription>

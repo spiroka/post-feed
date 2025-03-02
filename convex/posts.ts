@@ -1,7 +1,8 @@
 import { paginationOptsValidator } from 'convex/server';
 import { v } from 'convex/values';
+import { faker } from '@faker-js/faker';
 
-import { query } from './_generated/server'
+import { mutation, query } from './_generated/server'
 
 export const list = query({
   args: { paginationOpts: paginationOptsValidator },
@@ -38,5 +39,18 @@ export const byId = query({
     }
 
     return ctx.db.get(normalizedId);
+  }
+});
+
+export const addNew = mutation({
+  handler: (ctx) => {
+    return ctx.db.insert('posts', {
+      title: faker.word.words(5),
+      body: faker.lorem.paragraphs(3),
+      author: {
+        name: faker.person.fullName(),
+        avatarUrl: 'https://placecats.com/100/100'
+      }
+    });
   }
 });

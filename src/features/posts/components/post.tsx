@@ -13,7 +13,6 @@ type Props = {
   post: PostType;
 }
 
-
 export function Post({ post }: Props) {
   const goBack = useGoBackOrDefault('/');
 
@@ -24,6 +23,7 @@ export function Post({ post }: Props) {
           <Button
             variant="ghost"
             onClick={goBack}
+            aria-label="Go back"
           >
             <ArrowLeft />
           </Button>
@@ -31,8 +31,8 @@ export function Post({ post }: Props) {
         </CardTitle>
         <CardDescription>
           <PostAuthor
-            authorName="John Doe"
-            authorAvatarUrl="https://placecats.com/100/100"
+            authorName={post.author.name}
+            authorAvatarUrl={post.author.avatarUrl}
             creationTime={post._creationTime}
           />
         </CardDescription>

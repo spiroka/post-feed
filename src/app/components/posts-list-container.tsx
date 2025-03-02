@@ -27,6 +27,7 @@ export default function PostsListContainer({ initialResults }: Props) {
   const posts = !allPosts?.length ? initialPosts : allPosts;
 
   if (!isInitializedRef.current) {
+    // initializing the store with results from the server
     dispatch(hydratePostsAction(initialResults));
     isInitializedRef.current = true;
   }
