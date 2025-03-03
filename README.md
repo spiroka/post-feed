@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Infinite Post Feed
 
-## Getting Started
+This is a NextJS app router app displaying a post feed with infinite loading.
+I've used [Convex](https://convex.dev/) as the backend. New posts can be triggered from the command line.
+For state management, I'm using Redux with Redux Toolkit and RTK Query.
+UI components are generated with [shadcn/ui](https://ui.shadcn.com/) and styled with Tailwind CSS.
 
-First, run the development server:
+## Main features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- The first page of the feed and single posts are first rendered on the server for good SEO and to display them as soon as possible.
+- I avoided double fetching by hydrating the Redux store with the posts from the server.
+- The app notifies the use when a new post arrives, adds it to the feed and highlights it with a short animation.
+- The app has almost perfect Lighthouse scores.
+- The UI is made accessible by using semantic HTML and proper roles.
+- UI components are documented using Storybook. The Storybook a11y plugin helps to catch accessibility issues.
+- Unit tests are written using Vitest and @testing-library.
+- The app is linted using ESLint.
+- Production bundle size is minimal, thanks to NextJS splitting the code based on routes.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Running the app
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Getting started
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run `npm install` to install the dependencies.
 
-## Learn More
+### Development
 
-To learn more about Next.js, take a look at the following resources:
+Run `npm run dev` to start the Convex server and the NextJS development server.
+Run `npm run storybook` to start the Storybook server.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Production
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Run `npm run build` to build the app for production.
+Run `npm run start` to start the NextJS server.
 
-## Deploy on Vercel
+## Triggering new posts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To trigger a new post run `npm run generate-post`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Testing
+
+Run `npm run test` to run the Vitest tests.
+Run `npm run lint` to run ESLint.

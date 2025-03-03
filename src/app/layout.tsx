@@ -20,8 +20,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'FACEIT Feed',
-  description: 'FACEIT Feed'
+  title: 'Infinite Post Feed',
+  description: 'Infinite Post Feed'
 };
 
 export default function RootLayout({

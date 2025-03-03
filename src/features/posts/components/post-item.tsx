@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+
 import { PostAuthor } from './post-author';
 import { Post } from '../types';
 
