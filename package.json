@@ -10,7 +10,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "vitest --run --project unit --silent",
-    "generate-post": "npx convex run posts:addNew"
+    "generate-post": "node scripts/generate-post.mjs"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.3",
