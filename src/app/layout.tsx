@@ -43,7 +43,7 @@ export default function RootLayout({
           <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
           </footer>
         </div>
-        <Toaster position='top-center' />
+        <Toaster position="top-center" visibleToasts={1} />
         <Suspense fallback={null}>
           <NavigationEvents />
         </Suspense>

@@ -32,6 +32,8 @@ Run `npm install` to install the dependencies.
 
 Run `npm run dev` to start the Convex server and the NextJS development server.
 
+**Note:** logging into Convex is not required for the app to run.
+
 Run `npm run storybook` to start the Storybook server.
 
 ### Production
